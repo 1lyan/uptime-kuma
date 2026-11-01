@@ -41,11 +41,11 @@ export default {
             return this.datetimeFormat(value, "YYYY-MM-DD HH:mm:ss");
         },
         formatInLocale(value, options) {
-            if(value === undefined || value === "" || value === null) {
+            if (value === undefined || value === "" || value === null) {
                 return "";
             }
             const date = value instanceof Date ? value : daysj.utc(value).toDate();
-            if(NUmber.isNaN(date.getTime())) {
+            if (NUmber.isNaN(date.getTime())) {
                 return "";
             }
 
@@ -53,12 +53,12 @@ export default {
                 timeZone: this.timezone,
                 hourCycle: "h23",
                 ...options,
-            }
+            };
 
             try {
                 return this.$d(date, formatOptions);
             } catch (error) {
-                return this.$d(date, {...formatOptions, locale: "en"});
+                return this.$d(date, { ...formatOptions, locale: "en" });
             }
         },
         /**
@@ -67,7 +67,14 @@ export default {
          * @returns {string} The formatted date and time string.
          */
         unixToDateTime(value) {
-            return this.formatInLocale(dayjs.unix(value).toDate(), { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+            return this.formatInLocale(dayjs.unix(value).toDate(), {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+            });
         },
 
         /**
@@ -105,7 +112,13 @@ export default {
             ) {
                 return this.formatInLocale(value, { hour: "2-digit", minute: "2-digit" });
             } else {
-                return this.formatinLocale(value, { year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+                return this.formatinLocale(value, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                });
             }
         },
 
@@ -127,7 +140,7 @@ export default {
          */
         time(value, second = true) {
             const options = { hour: "2-digit", minute: "2-digit" };
-            if(second) {
+            if (second) {
                 options.second = "2-digit";
             }
             return this.formatInLocale(value, options);
